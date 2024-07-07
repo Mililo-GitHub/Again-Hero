@@ -37,13 +37,13 @@ public class PlayerAnimate : MonoBehaviour
             StartCoroutine(JumpAnim());
             
         }
-        if (Input.GetKeyDown(KeyCode.Mouse1) && isDashing == false )
+        if (Input.GetKeyDown(KeyCode.Mouse1) && dash.isDashing == false )
         {
             if (player.stamina == dash.dashCost || player.stamina > dash.dashCost)
             {
                 StartCoroutine(DashAnim());
                 anim.SetBool("isDashing", true);
-                isDashing = true;
+               
             }
             
         }
@@ -85,7 +85,7 @@ public class PlayerAnimate : MonoBehaviour
     {
         yield return new WaitForSeconds(0.85f);
         anim.SetBool("isDashing", false);
-        isDashing = false;
+      
 
     }
    

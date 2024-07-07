@@ -11,11 +11,16 @@ public class PlayerStamina : MonoBehaviour
     private bool isStaminaInsufficient;
     public float reloadSpeed = 0.1f;
     private bool shouldReload;
-    private bool isReloading;
+    public bool isReloading;
 
     void Update()
     {
-       
+        if (stamina == maxStamina)
+        {
+            lastPressTime = Time.time;
+            isReloading = false;
+        }
+
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
             
@@ -44,7 +49,9 @@ public class PlayerStamina : MonoBehaviour
     {
         if (isStaminaInsufficient == true)
         {
+            Debug.Log("Insufficient Stamina for dash");
             return;
+           
         }
         else
         {

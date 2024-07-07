@@ -6,7 +6,7 @@ public class Dash : MonoBehaviour
 {
     public Move move;
     public float dashSpeed;
-    public bool isRunning;
+    public bool isDashing;
     public PlayerStamina player;
     public int dashCost;
     public GameObject hurtBox;
@@ -22,27 +22,35 @@ public class Dash : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse1) && isRunning == false && ground.onGround == true )
+        if (Input.GetKeyDown(KeyCode.Mouse1) && isDashing == false  )
         {
-            if (player.stamina > dashCost || player.stamina == dashCost)
+            Debug.Log("Right click and Player isn't dashing");
+            if ( ground.onGround == true)
             {
-                StartCoroutine(DashStart());
-                StopCoroutine(MakeInvincible());
-                StartCoroutine(MakeInvincible());
+                Debug.Log("RightClick and player is grounded");
+                if (player.stamina > dashCost || player.stamina == dashCost)
+                {
+                    Debug.Log("RightClick and player has enough stamina");
+                    StartCoroutine(DashStart());
+                    StopCoroutine(MakeInvincible());
+                    StartCoroutine(MakeInvincible());
+                }
             }
-            
-            
+
+
+          
         }
+       
     }
 
     public IEnumerator DashStart()
     {
         player.stamina -= dashCost;
-        isRunning = true;
+        isDashing = true;
         move.maxSpeed = dashSpeed;
         yield return new WaitForSeconds(0.85f);
         move.maxSpeed = 9.1f;
-        isRunning = false;
+        isDashing = false;
     }
 
     private IEnumerator MakeInvincible()
